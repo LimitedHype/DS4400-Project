@@ -1,13 +1,14 @@
 import pandas as pd
 import numpy as np
-import seaborn as sns
-import matplotlib.pyplot as plt
-import mpl_toolkits.mplot3d  
 import sklearn as sk
 import pytorch as torch
 
+from sk.linear_model import LogisticRegression
+
+
 class BusRegression:
     def __init__(self):
+        logReg = LogisticRegression()
         pass
     def train(self):
         pass
