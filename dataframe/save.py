@@ -24,4 +24,4 @@ def loadDataFrame(filter_id: str, path: str, chunksize_: int) -> None:
 
 for month, name in bus_arrival_departure_list:
     new_dataFrame = loadDataFrame(filter_id='nuniv', path=month, chunksize_=1000)
-    new_dataFrame.to_csv('../dataset_filtered/bus_arrival_departure_northeastern_' + str(name))
+    new_dataFrame.to_csv('../dataset_filtered/bus_arrival_departure_northeastern_' + str(name) + '.csv')
