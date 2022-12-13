@@ -9,13 +9,13 @@ import os
 from text_preprocessing import preprocess_text
 from numpy import save
 from numpy import load
-df = pd.read_csv("./dataset_modified/Bus Arrival Departure Times Oct-Dec 2020.csv")
+df = pd.read_csv("./dataset_modified/Bus Arrival Departure Times Apr-June 2020.csv")
 
 
 df = df.drop(df.columns[[0]],axis = 1)
-df = df[ df['Timepoint'].astype(str).str.contains('nuniv') == True]
+df = df[ df['time_point_id'].astype(str).str.contains('nuniv') == True]
 print(df.info())
-df.to_csv('./dataset_filtered/Bus Arrival Departure Times Oct-Dec 2020.csv', index=None)
+df.to_csv('./dataset_filtered/Bus Arrival Departure Times Apr-June 2020.csv', index=None)
 
 """
 with pd.read_csv("./dataset_modified/Bus Arrival Departure Times Apr-June 2020.csv", chunksize=1000) as reader:
