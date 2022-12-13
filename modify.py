@@ -7,18 +7,30 @@ import sklearn
 from tqdm import tqdm
 import os
 from text_preprocessing import preprocess_text
+from numpy import save
+from numpy import load
+df = pd.read_csv("./dataset_modified/Bus Arrival Departure Times Oct-Dec 2020.csv")
 
-df = pd.read_csv("./dataset/Bus Arrival Departure Times Oct-Dec 2020.csv", nrows=1)
 
-with pd.read_csv("./dataset/Bus Arrival Departure Times Oct-Dec 2020.csv", chunksize=1000) as reader:
+df = df.drop(df.columns[[0]],axis = 1)
+df = df[ df['Timepoint'].astype(str).str.contains('nuniv') == True]
+print(df.info())
+df.to_csv('./dataset_filtered/Bus Arrival Departure Times Oct-Dec 2020.csv', index=None)
+
+"""
+with pd.read_csv("./dataset_modified/Bus Arrival Departure Times Apr-June 2020.csv", chunksize=1000) as reader:
     reader 
     for chunk in reader: 
-        chunk = chunk[chunk['Route'].astype(str).str.contains('39') == True]
+        chunk = chunk[chunk.drop(df.columns[[0]],axis = 1)]
+        chunk = chunk[chunk['time_point_id'].astype(str).str.contains('nuniv') == True]
         df = pd.concat([df, chunk ])
 
 print(df.head())
+#save('./dataset_filtered/Bus Arrival Departure Times Apr-June 2020.npy', df)
+df.to_csv('./dataset_filtered/Bus Arrival Departure Times Apr-June 2020.csv')
+"""
 
-df.to_csv('./dataset_modified/Bus Arrival Departure Times Oct-Dec 2020.csv')
+
 
 """ 
 def saveDataFrame(data_temp):
