@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 
-path = '../datasets/Bus Arrival Departure Times Apr-June 2020.csv'
+path_one = '../datasets/Bus Arrival Departure Times Apr-June 2020.csv'
 
 def loadDataFrame(filter_id: str, path: str, chunksize_: int) -> None:
     new_frames = pd.DataFrame()
@@ -14,6 +14,9 @@ def loadDataFrame(filter_id: str, path: str, chunksize_: int) -> None:
 def save_as_numpy(fileName: str, df):
     new_df = df.to_numpy()
     np.save(fileName, new_df)
+
+new_dataFrame = loadDataFrame(filter_id='nuniv', path=path_one, chunksize_=1000)
+save_as_numpy('../dataset_filtered/bus_arrival_departure_northeastern_april_june', new_dataFrame)
 
 new_dataFrame = loadDataFrame(filter_id='nuniv', path=path, chunksize_=1000)
 save_as_numpy('../dataset_filtered/bus_arrival_departure_northeastern_april_june', new_dataFrame)
