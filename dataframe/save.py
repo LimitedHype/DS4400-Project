@@ -71,8 +71,14 @@ sample_frames['actual'] = pd.to_datetime(sample_frames['actual'])
 sample_frames['actual'] = (sample_frames['actual'] - sample_frames['actual'].dt.normalize()).dt.total_seconds()
 sample_frames['scheduled'] = (sample_frames['scheduled'] - sample_frames['scheduled'].dt.normalize()).dt.total_seconds()
 
+def calc_delta(df): 
+    df['scheduled'] = pd.to_datetime(df['scheduled'])
+    df['actual'] = pd.to_datetime(df['actual'])
+    df['actual'] = (df['actual'] - df['actual'].dt.normalize()).dt.total_seconds()
+    df['scheduled'] = (df['scheduled'] - df['scheduled'].dt.normalize()).dt.total_seconds()
+    return df.assign(delta = abs(df.scheduled - df.actual))
+
+sample_frames = calc_delta(sample_frames)
+
 print("Saving sampled frames!")
 sample_frames.to_csv('../dataset_filtered/bus_arrival_departure_northeastern_sampled' + '.csv')
-
-
-
