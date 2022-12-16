@@ -1,7 +1,6 @@
 import pandas as pd
 import numpy as np
 
-import random
 RANDOM_SEED = 4400
 
 # Bus Arrival and Departure Time Datasets
@@ -38,13 +37,7 @@ def loadDataFrameOct(path: str, chunksize_: int) -> None:
             pass
     return new_frames
 
-# def save_as_numpy(fileName: str, df):
-#     new_df = df.to_numpy()
-#     np.save(fileName, new_df)
-
 list_of_path_parsed = []
-
-# filter_id = ['nuniv', 'brghm', 'hlong', 'shunt', 'fhill', 'hunbv', 'bbsta', 'jpctr', 'heath']
 
 for path, name in bus_arrival_departure_list:
     if name == 'oct_dec':
@@ -60,7 +53,7 @@ sample_frames = pd.DataFrame()
 for path, name in list_of_path_parsed:
     for i, chunk in enumerate(pd.read_csv(path, chunksize=1000)):
         try:
-            sample_frame = chunk.sample(frac=0.01, replace=False, random_state=RANDOM_SEED)
+            sample_frame = chunk.sample(frac=0.002, replace=False, random_state=RANDOM_SEED)
             sample_frames = pd.concat([sample_frames, sample_frame])
         except:
             pass
@@ -68,15 +61,12 @@ for path, name in list_of_path_parsed:
 # Convert to DateTime
 sample_frames['scheduled'] = pd.to_datetime(sample_frames['scheduled'])
 sample_frames['actual'] = pd.to_datetime(sample_frames['actual'])
-sample_frames['actual'] = (sample_frames['actual'] - sample_frames['actual'].dt.normalize()).dt.total_seconds()
-sample_frames['scheduled'] = (sample_frames['scheduled'] - sample_frames['scheduled'].dt.normalize()).dt.total_seconds()
 
 def calc_delta(df): 
-    df['scheduled'] = pd.to_datetime(df['scheduled'])
-    df['actual'] = pd.to_datetime(df['actual'])
-    actual_df = (df['actual'] - df['actual'].dt.normalize()).dt.total_seconds()
-    scheduled_df = (df['scheduled'] - df['scheduled'].dt.normalize()).dt.total_seconds()
-    return df.assign(delta = abs(scheduled_df - actual_df))
+    scheduled_time = pd.to_datetime(sample_frames['scheduled'])
+    actual_time = pd.to_datetime(sample_frames['actual'])
+    time_delta = (scheduled_time - actual_time).dt.total_seconds()
+    return df.assign(delta = abs(time_delta))
 
 sample_frames = calc_delta(sample_frames)
 
