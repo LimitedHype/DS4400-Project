@@ -30,8 +30,9 @@ def loadDataFrameOct(filter_id: str, path: str, chunksize_: int) -> None:
     new_frames = pd.DataFrame()
     for i, chunk in enumerate(pd.read_csv(path, chunksize=chunksize_)):
         try:
+            
             new_frame = chunk[(chunk.Timepoint == filter_id) & (pd.notnull(chunk.Actual))]
-            new_frame = new_frame.rename(columns={'oldName1': 'newName1', 'oldName2': 'newName2'})
+            new_frame = new_frame.rename(columns={"ServiceDate" : "service_date" ,"Route" : "route_id","Direction" : "direction", "HalfTripId" : "half_trip_id","Stop" : "stop_id","Timepoint" : "time_point_id","TimepointOrder" : "time_point_order","PointType" : "point_type","StandardType" : "standard_type","Scheduled" : "scheduled","Actual" : "actual","ScheduledHeadway" :"scheduled_headway" ,"Headway" : "headway"})
             new_frames = pd.concat([new_frames, new_frame])
         except:
             pass
