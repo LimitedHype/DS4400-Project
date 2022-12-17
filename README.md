@@ -9,6 +9,7 @@ cd datasets
 cd ../dataframe
 python3 save.py
 python3 convert_to_features.py
+python3 save_weather.py
 
 ```
 
