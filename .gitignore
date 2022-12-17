@@ -2,3 +2,5 @@ dataset/
 datasets/
 dataset_modified/
 dataset_filtered_local/
+dataset_filtered/
+training_sets/
