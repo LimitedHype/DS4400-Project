@@ -186,4 +186,3 @@ dependencies:
   - zstd=1.5.2=hcb37349_0
   - pip:
     - pyqt5-sip==12.11.0
-prefix: /Users/lipet/opt/anaconda3/envs/machine-learning
