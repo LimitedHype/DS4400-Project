@@ -16,6 +16,7 @@ python3 convert_to_features.py
 
 ```
 conda env create -f environment.yml
+conda activate machine-learning
 ```
 
 ## Run code
